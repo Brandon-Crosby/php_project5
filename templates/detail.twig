@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>SparkBlog</title>
+        <link href='https://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Noto+Sans:700,400' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/site.css">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div class="site-header">
+                    <a class="logo" href="/" style="background-color:#DC143C;">SparkBlog</a>
+                    <a class="new-entry button button-round" href="/new"><i class="material-icons">create</i></a>
+                </div>
+            </div>
+        </header>
+        <section>
+            <div class="container">
+                <div class="entry-list single">
+                    <article>
+                        <h1 style="background-color:#DC143C;">{{ post.title }}</h1>
+                        <time datetime="2016-01-31 1:00">{{ post.date|date('m-d-Y')}}</time>
+                        <div class="entry">
+                            <p class="body">{{ post.body|raw }}</p>
+                            <!--p>Cras egestas ac ipsum in posuere. Fusce suscipit, libero id malesuada placerat, orci velit semper metus, quis pulvinar sem nunc vel augue. In ornare tempor metus, sit amet congue justo porta et. Etiam pretium, sapien non fermentum consequat, <a href="">dolor augue</a> gravida lacus, non accumsan lorem odio id risus. Vestibulum pharetra tempor molestie. Integer sollicitudin ante ipsum, a luctus nisi egestas eu. Cras accumsan cursus ante, non dapibus tempor.</p-->
+                            <p><a class="link" href="/edit/{{ post.id }}">Edit Entry</a></p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="entry-comments">
+          <div class="container">
+                <h2>Comments</h2>
+                  {% for comment in comments %}
+                  <div class="comment">{{ comment.name }}
+                      <time datetime="{{ comment.date }}">{{ comment.date|date('m-d-Y') }}</time>
+                      <p>{{ comment.body }}</p>
+                  </div>
+                  {% endfor %}
+          </div>
+              <div class="new-comment">
+                <form method="post" action="/detail/{{ post.id }}">
+                  <label for="name">Name</label>
+                  <input type="text" name="name"><br>
+                  <label for="comments">Comment</label>
+                  <textarea rows="5" name="body"></textarea>
+                  <input type="submit" value="Post Comment" class="button">
+                  <input type="hidden" name="comment_id" value="{{ detail.id }}" >
+                </form>
+              </div>
+        </section>
+        <footer>
+            <div>
+                <a href="#">Contact Us</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                <a href="#">Terms</a>
+            </div>
+        </footer>
+    </body>
+</html>
